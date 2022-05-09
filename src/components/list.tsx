@@ -28,20 +28,26 @@ export const List = () => {
     area: "",
     active: false
   });
+  React.useEffect(() => {
+    localStorage.removeItem("adot-data");
+    return () => {
+      localStorage.removeItem("adot-data");
+    }
+  }, []);
 
   console.log(currentData);
 
-  const storedData = localStorage.getItem("data");
+  const storedData = localStorage.getItem("adot-data");
 
   const handleSubmit: () => void = () => {
     console.log(currentData);
     let data = [];
     
-    if (localStorage.getItem("data")) {
+    if (localStorage.getItem("adot-data")) {
         data = JSON.parse(storedData || "");
     }
     data.push(currentData);
-    localStorage.setItem("data", JSON.stringify(data));
+    localStorage.setItem("adot-data", JSON.stringify(data));
     setShowModal(false);
   }
 

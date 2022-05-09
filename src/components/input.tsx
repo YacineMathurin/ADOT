@@ -2,16 +2,21 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { IProps as Props } from "./modal";
 
-interface IProps {
+interface IProps extends React.HTMLAttributes<HTMLElement> {
+    ref?: React.MutableRefObject<null>,
     label?: string,
     name: string,
-    placeholder: string,
+    placeholder: string, 
     autoFocus?: boolean,
     currentData: Props["currentData"],
     setCurrentData: React.Dispatch<React.SetStateAction<Props["currentData"]>>
 }
-export const Input: React.FC<IProps> = ({label = "", name, placeholder, autoFocus = false, currentData, setCurrentData, ...props}) => {
-    
+
+export const Input = React.forwardRef<HTMLInputElement, IProps>((
+        {label = "", name, placeholder, autoFocus = false, currentData, setCurrentData, ...props},
+        ref
+    ) => {
+
     return (
         <Form.Group className="mb-3" id={name}>
             {/* <Form.Label>{label}</Form.Label> */}
@@ -27,9 +32,11 @@ export const Input: React.FC<IProps> = ({label = "", name, placeholder, autoFocu
                     });
                 }}
                 autoFocus={autoFocus}
+                ref={ref}
                 {...props}
             />
         </Form.Group>
     )
-};
+})
+
 export default Input;

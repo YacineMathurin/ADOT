@@ -18,7 +18,7 @@ export const Switch: React.FC<IProps> = ({ name, currentData, setCurrentData, ..
                 onChange={(e) => {
                     setCurrentData({
                         ...currentData,
-                        [e.target.name]: e.target.value
+                        [e.target.name]: e.target.checked
                     });
                 }}
                 {...props}

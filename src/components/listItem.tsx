@@ -14,7 +14,7 @@ console.log(data);
 // const {city, address, caption, people, hotels, salaries, area} = data;
 
 const renderList = (): JSX.Element[] => {
-    return data.map(({city, address, caption, people, hotels, salaries, area}, index: number) => (           
+    return data.map(({city, address, caption, people, hotels, salaries, area, active}, index: number) => (           
         <Col lg={4} sm={12} key={index}>
             <div>
                 <img className="list-item-image" src={caption} alt={city} width="100%" /> 
@@ -25,6 +25,8 @@ const renderList = (): JSX.Element[] => {
                             <Form.Check 
                                 type="switch"
                                 id="custom-switch"
+                                checked={active}
+                                onChange={()=>console.log("Sw")}
                             />
                         </Form>
                     </div>
