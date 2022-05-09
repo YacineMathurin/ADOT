@@ -1,24 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Form from 'react-bootstrap/Form'
+import { List } from './components/list';
+import ListItem from './components/listItem';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <h1>Welcome !</h1> */}
+      {/* <p>Decouvrer nos meilleurs destinations</p> */}
+      {/* <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label>Default file input example</Form.Label>
+        <Form.Control type="file" />
+      </Form.Group> */}
+      <List />
+      <ListItem></ListItem>
     </div>
   );
 }
