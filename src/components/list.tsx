@@ -18,6 +18,9 @@ export interface IState {
 
 export const List = () => {
   const [showModal, setShowModal] = React.useState(false);
+
+  const [storedData, setStoredData] = React.useState<string | null>("");
+
   const [currentData, setCurrentData] = React.useState<IState["currentDataType"]>({
     city: "",
     address: "",
@@ -35,9 +38,20 @@ export const List = () => {
     }
   }, []);
 
-  console.log(currentData);
 
-  const storedData = localStorage.getItem("adot-data");
+  // const storedData = localStorage.getItem("adot-data");
+
+  const setActive: (index: number) => void = (index) => {
+    console.log("Switched");
+    
+    const parsedStoredData = JSON.parse(storedData || "");
+    let destination = parsedStoredData[index];
+    destination.active = !destination.active;
+
+    parsedStoredData[index] = destination;
+    localStorage.setItem("adot-data", JSON.stringify(parsedStoredData));
+    setStoredData(localStorage.getItem("adot-data"))
+  }
 
   const handleSubmit: () => void = () => {
     console.log(currentData);
@@ -48,6 +62,7 @@ export const List = () => {
     }
     data.push(currentData);
     localStorage.setItem("adot-data", JSON.stringify(data));
+    setStoredData(localStorage.getItem("adot-data"));
     setShowModal(false);
   }
 
@@ -75,7 +90,7 @@ export const List = () => {
           + Ajouter
         </Button>
       </div>
-      {storedData && <ListItem data={JSON.parse(storedData || "")}/>}
+      {storedData && <ListItem data={JSON.parse(storedData || "")} setActive={setActive}/>}
     </div>
   );
 };

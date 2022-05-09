@@ -5,10 +5,11 @@ import Col from 'react-bootstrap/Col';
 import { IState as Props } from "./list";
 
 interface  IProps {
-    data: Props["currentDataType"][]
+    data: Props["currentDataType"][],
+    setActive: (index:number) => void
 }
 
-export const ListItem: React.FC<IProps> = ({data}) => {
+export const ListItem: React.FC<IProps> = ({data, setActive}) => {
 console.log(data);
 
 // const {city, address, caption, people, hotels, salaries, area} = data;
@@ -26,7 +27,7 @@ const renderList = (): JSX.Element[] => {
                                 type="switch"
                                 id="custom-switch"
                                 checked={active}
-                                onChange={()=>console.log("Sw")}
+                                onChange={()=>setActive(index)}
                             />
                         </Form>
                     </div>
