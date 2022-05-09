@@ -16,7 +16,7 @@ console.log(data);
 
 const renderList = (): JSX.Element[] => {
     return data.map(({city, address, caption, people, hotels, salaries, area, active}, index: number) => (           
-        <Col lg={4} sm={12} key={index}>
+        <Col lg={4} sm={12} key={index} style={{marginBottom: "1em"}}>
             <div>
                 <img className="list-item-image" src={caption} alt={city} width="100%" /> 
                 <div style={{backgroundColor: "white", padding:"1em"}}>

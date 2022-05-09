@@ -38,9 +38,6 @@ export const List = () => {
     }
   }, []);
 
-
-  // const storedData = localStorage.getItem("adot-data");
-
   const setActive: (index: number) => void = (index) => {
     console.log("Switched");
     
@@ -66,19 +63,8 @@ export const List = () => {
     setShowModal(false);
   }
 
-
-  return (
-    <div className="list_container">
-      {showModal && (
-        <Modal 
-            currentData={currentData} 
-            setCurrentData={setCurrentData} 
-            showModal={showModal}
-            setShowModal={setShowModal}
-            handleSubmit={handleSubmit}
-        />
-
-      )}
+  const MyHeader = () => {
+    return(
       <div className="btn-container">
         <p style={{fontWeight: "300"}}>Destinations</p>
         <Button
@@ -90,6 +76,23 @@ export const List = () => {
           + Ajouter
         </Button>
       </div>
+    )
+  }
+
+  return (
+    <div className="list_container">
+      <MyHeader></MyHeader>
+      {/* Add a destination */}
+      {showModal && (
+        <Modal 
+            currentData={currentData} 
+            setCurrentData={setCurrentData} 
+            showModal={showModal}
+            setShowModal={setShowModal}
+            handleSubmit={handleSubmit}
+        />
+      )}
+      {/* Fetch and display destination */}
       {storedData && <ListItem data={JSON.parse(storedData || "")} setActive={setActive}/>}
     </div>
   );
