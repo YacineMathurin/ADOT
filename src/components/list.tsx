@@ -1,5 +1,6 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
+import ListItem from "./listItem";
 import { ModalComponent as Modal } from "./modal";
 
 export interface IState {
@@ -7,8 +8,11 @@ export interface IState {
         city: string,
         address: string,
         caption: string,
-        zip: string,
-        code: string
+        people: string,
+        hotels: string,
+        salaries:string,
+        area: string,
+        active: boolean
     }
 }
 
@@ -18,24 +22,29 @@ export const List = () => {
     city: "",
     address: "",
     caption: "",
-    zip: "",
-    code: ""
+    people: "",
+    hotels: "",
+    salaries:"",
+    area: "",
+    active: false
   });
 
   console.log(currentData);
+
+  const storedData = localStorage.getItem("data");
+
   const handleSubmit: () => void = () => {
     console.log(currentData);
-    let storedData = [{}];
+    let data = [];
     
     if (localStorage.getItem("data")) {
-        storedData = JSON.parse(localStorage.getItem("data") || "");
+        data = JSON.parse(storedData || "");
     }
-    storedData.push(currentData);
-    localStorage.setItem("data", JSON.stringify(storedData));
+    data.push(currentData);
+    localStorage.setItem("data", JSON.stringify(data));
     setShowModal(false);
   }
 
-  const storedData = localStorage.getItem("data");
 
   return (
     <div className="list_container">
@@ -60,7 +69,7 @@ export const List = () => {
           + Ajouter
         </Button>
       </div>
-      {/* {storedData && <p>En route vers ListItem ...</p>} */}
+      {storedData && <ListItem data={JSON.parse(storedData || "")}/>}
     </div>
   );
 };

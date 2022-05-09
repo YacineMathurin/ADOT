@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import { IState as Props} from "./list";
 import Input from "./input";
 import Modal from 'react-bootstrap/Modal'
+import Switch from "./switch";
 
 export interface IProps {
     currentData: Props["currentDataType"],
@@ -18,7 +19,7 @@ export interface IProps {
 
 export const ModalComponent: React.FC<IProps> = ({ currentData, setCurrentData, setShowModal, handleSubmit }) => {
 
-const {city, zip, code, caption} = currentData;
+const {city, address, caption, people, hotels, salaries, area, active} = currentData;
 
 const onImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files[0]) {
@@ -102,13 +103,11 @@ const onImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
                 </Col>
             </Row>
             <Row>
-                <Form>
-                    <Form.Check 
-                        type="switch"
-                        id="custom-switch"
-                        label="Activer"
-                    />
-                </Form>
+                <Switch 
+                    name="active"
+                    currentData={currentData}
+                    setCurrentData={setCurrentData}
+                />
             </Row>
             {/* Footer */}
             <Row>
@@ -121,7 +120,13 @@ const onImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
                         CANCEL
                     </Button>
                     <Button
-                        disabled={(city === "" || zip === "" || code === "") ? true: false}
+                        disabled={(city === "" ||
+                        address === "" ||
+                        caption === "" ||
+                        people === "" ||
+                        hotels === "" ||
+                        salaries === "" ||
+                        area === "") ? true: false}
                         variant="light"
                         style={{ marginLeft: "0.75em", color:"#38CC77", fontWeight: "bold", fontSize: "0.8em" }}
                         onClick={()=>handleSubmit()} 

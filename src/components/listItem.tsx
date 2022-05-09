@@ -1,117 +1,65 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { IState as Props } from "./list";
 
-export default function ListItem() {
+interface  IProps {
+    data: Props["currentDataType"][]
+}
+
+export const ListItem: React.FC<IProps> = ({data}) => {
+console.log(data);
+
+// const {city, address, caption, people, hotels, salaries, area} = data;
+
+const renderList = (): JSX.Element[] => {
+    return data.map(({city, address, caption, people, hotels, salaries, area}, index: number) => (           
+        <Col lg={4} sm={12} key={index}>
+            <div>
+                <img className="list-item-image" src={caption} alt={city} width="100%" /> 
+                <div style={{backgroundColor: "white", padding:"1em"}}>
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        <h5 style={{marginBottom: "0"}}>{city}</h5>
+                        <Form>
+                            <Form.Check 
+                                type="switch"
+                                id="custom-switch"
+                            />
+                        </Form>
+                    </div>
+                    <p style={{paddingBottom: "1em", borderBottom:"1px solid #ccc", fontSize: "12px"}}>{address}</p>
+                    <div style={{display: "flex", justifyContent: "space-evenly"}}>
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <p className="list-item-bottom-margin">{people}</p>
+                            <p className="list-item-metrics">Habitants</p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <p className="list-item-bottom-margin">{hotels}</p>
+                            <p className="list-item-metrics">Hotels</p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <p className="list-item-bottom-margin">{salaries}</p>
+                            <p className="list-item-metrics">Revenu Moy.</p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <p className="list-item-bottom-margin">{area}</p>
+                            <p className="list-item-metrics">km²</p>
+                        </div>
+                            
+                        </div>
+                </div>   
+            </div>
+        </Col> 
+    ))
+}
+  
   return (
-      <div className="list-item-container">
-        <div>
-            <img className="list-item-image" src="images/paris.jpg" alt="London's eye" width="100%" /> 
-            <div style={{backgroundColor: "white", padding:"1em"}}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <h5 style={{marginBottom: "0"}}>Paris</h5>
-                    <Form>
-                        <Form.Check 
-                            type="switch"
-                            id="custom-switch"
-                            // label="Check this switch"
-                        />
-                    </Form>
-                </div>
-                <p style={{paddingBottom: "1em", borderBottom:"1px solid #ccc", fontSize: "12px"}}>3 Rue soutrane, 06560 Valbonne</p>
-                <div style={{display: "flex", justifyContent: "space-evenly"}}>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">3.4M</p>
-                        <p className="list-item-metrics">Habitants</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">5000</p>
-                        <p className="list-item-metrics">Hotels</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">70 000</p>
-                        <p className="list-item-metrics">Revenu Moy.</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">88.25</p>
-                        <p className="list-item-metrics">km²</p>
-                    </div>
-                    
-                </div>
-            </div>   
-        </div>
-        
-        <div>
-            <img className="list-item-image" src="images/london.jpg" alt="London's eye" width="100%" /> 
-            <div style={{backgroundColor: "white", padding:"1em"}}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <h5 style={{marginBottom: "0"}}>London</h5>
-                    <Form>
-                        <Form.Check 
-                            type="switch"
-                            id="custom-switch"
-                            // label="Check this switch"
-                        />
-                    </Form>
-                </div>
-                <p style={{paddingBottom: "1em", borderBottom:"1px solid #ccc", fontSize: "12px"}}>3 Rue soutrane, 06560 Valbonne</p>
-                <div style={{display: "flex", justifyContent: "space-evenly"}}>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">3.4M</p>
-                        <p className="list-item-metrics">Habitants</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">5000</p>
-                        <p className="list-item-metrics">Hotels</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">70 000</p>
-                        <p className="list-item-metrics">Revenu Moy.</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">88.25</p>
-                        <p className="list-item-metrics">km²</p>
-                    </div>
-                    
-                </div>
-            </div>   
-        </div>
-        
-        <div>
-            <img className="list-item-image" src="images/amsterdam.jpg" alt="London's eye" width="100%" /> 
-            <div style={{backgroundColor: "white", padding:"1em"}}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <h5 style={{marginBottom: "0"}}>Amsterdam</h5>
-                    <Form>
-                        <Form.Check 
-                            type="switch"
-                            id="custom-switch"
-                            // label="Check this switch"
-                        />
-                    </Form>
-                </div>
-                <p style={{paddingBottom: "1em", borderBottom:"1px solid #ccc", fontSize: "12px"}}>3 Rue soutrane, 06560 Valbonne</p>
-                <div style={{display: "flex", justifyContent: "space-evenly"}}>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">3.4M</p>
-                        <p className="list-item-metrics">Habitants</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">5000</p>
-                        <p className="list-item-metrics">Hotels</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">70 000</p>
-                        <p className="list-item-metrics">Revenu Moy.</p>
-                    </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <p className="list-item-bottom-margin">88.25</p>
-                        <p className="list-item-metrics">km²</p>
-                    </div>
-                    
-                </div>
-            </div>   
-        </div>
-        
+      <div >
+        <Row style={{display: "flex", justifyContent: "center"}}>
+            {renderList()}
+        </Row>  
     </div>
   )
 }
+export default ListItem;
