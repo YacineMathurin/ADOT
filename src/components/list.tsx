@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from 'react-bootstrap/Button';
 import ListItem from "./listItem";
 import { ModalComponent as Modal } from "./modal";
@@ -13,10 +13,51 @@ export interface IState {
         salaries:string,
         area: string,
         active: boolean
-    }
+    },
+    setActive: (index: number) => void
+}
+
+const styles = {
+  headerText: {fontWeight: "300"},
+  addDestBtn:{height: "80%", background: "#38CC77", border: "#ccc", textTransform: "uppercase", position:"relative", bottom: "8px"},
+  
+}
+
+const currentDataContext = React.createContext<IState["currentDataType"] | null>(null);
+const setCurrentDataContext = React.createContext<React.Dispatch<React.SetStateAction<IState["currentDataType"]>> | null>(null);
+const showModalContext = React.createContext< boolean | null>(null);
+const setShowModalContext = React.createContext< React.Dispatch<React.SetStateAction<boolean>> | null>(null);
+const handleSubmitContext = React.createContext< () => void | null>(()=>{});
+
+export const useCurrentDataContext = () => {
+  return React.useContext(currentDataContext);
+}
+export const useSetCurrentDataContext = () => {
+  return React.useContext(setCurrentDataContext);
+}
+export const useShowModalContext = () => {
+  return React.useContext(showModalContext);
+}
+export const useSetShowModalContext = () => {
+  return React.useContext(setShowModalContext);
+}
+export const useHandleSubmitContext = () => {
+  return React.useContext(handleSubmitContext);
+}
+
+const dataContext = React.createContext<IState["currentDataType"][] | null>(null);
+const setActiveContext = React.createContext<IState["setActive"] | null>(null);
+
+export const useDataContext = () => {
+  return React.useContext(dataContext);
+}
+export const useSetActiveContext = () => {
+  return React.useContext(setActiveContext);
 }
 
 export const List = () => {
+
+
   const [showModal, setShowModal] = React.useState(false);
 
   const [storedData, setStoredData] = React.useState<string | null>("");
@@ -66,8 +107,9 @@ export const List = () => {
   const MyHeader = () => {
     return(
       <div className="btn-container">
-        <p style={{fontWeight: "300"}}>Destinations</p>
+        <p data-testid="header-text" style={styles.headerText}>Destinations</p>
         <Button
+          data-testid="add-destination-btn"
           size="sm"
           variant="success"
           onClick={() => setShowModal(!showModal)}
@@ -83,17 +125,26 @@ export const List = () => {
     <div className="list_container">
       <MyHeader></MyHeader>
       {/* Add a destination */}
-      {showModal && (
-        <Modal 
-            currentData={currentData} 
-            setCurrentData={setCurrentData} 
-            showModal={showModal}
-            setShowModal={setShowModal}
-            handleSubmit={handleSubmit}
-        />
-      )}
+      {showModal && 
+        <currentDataContext.Provider value={currentData}>
+          <setCurrentDataContext.Provider value={setCurrentData}>
+            <showModalContext.Provider value={showModal}>
+              <setShowModalContext.Provider value={setShowModal}>
+                <handleSubmitContext.Provider value={handleSubmit}>
+                  <Modal />
+                </handleSubmitContext.Provider>
+              </setShowModalContext.Provider>
+            </showModalContext.Provider>
+          </setCurrentDataContext.Provider>
+        </currentDataContext.Provider>
+      }
       {/* Fetch and display destination */}
-      {storedData && <ListItem data={JSON.parse(storedData || "")} setActive={setActive}/>}
+      {storedData &&
+       <dataContext.Provider value={JSON.parse(storedData || "")}>
+        <setActiveContext.Provider value={setActive}>
+          <ListItem />
+        </setActiveContext.Provider>
+      </dataContext.Provider>}
     </div>
   );
 };

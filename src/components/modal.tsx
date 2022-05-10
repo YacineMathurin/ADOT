@@ -6,18 +6,34 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { IState as Props} from "./list";
 import Input from "./input";
-import Modal from 'react-bootstrap/Modal'
+import Modal from 'react-bootstrap/Modal';
 import Switch from "./switch";
+import { useCurrentDataContext, 
+    useSetCurrentDataContext, 
+    useShowModalContext,
+    useSetShowModalContext,
+    useHandleSubmitContext
+} from "./list";
 
 export interface IProps {
     currentData: Props["currentDataType"],
-    setCurrentData: React.Dispatch<React.SetStateAction<Props["currentDataType"]>>,
-    showModal: boolean,
-    setShowModal:  React.Dispatch<React.SetStateAction<boolean>>,
-    handleSubmit: () => void
 }
 
-export const ModalComponent: React.FC<IProps> = ({ currentData, setCurrentData, showModal, setShowModal, handleSubmit }) => {
+export const ModalComponent: React.FC = () => {
+    const currentData = useCurrentDataContext();
+    const setCurrentData = useSetCurrentDataContext();
+    const showModal = useShowModalContext();
+    const setShowModal = useSetShowModalContext();
+    const handleSubmit = useHandleSubmitContext(); 
+
+    if (!currentData ||
+        !setCurrentData ||
+        !showModal ||
+        !setShowModal ||
+        !handleSubmit
+    ) {
+        return <></>
+    }
     const ref = React.createRef<HTMLInputElement>()
     const {city, address, caption, people, hotels, salaries, area, active} = currentData;
 
@@ -32,7 +48,7 @@ export const ModalComponent: React.FC<IProps> = ({ currentData, setCurrentData, 
     };
 
   return (
-    <div className="modal_container">
+    <div data-testid="modal">
         <Modal 
             show={showModal} 
             onHide={()=>setShowModal(false)} 
