@@ -9,8 +9,9 @@ export const ListItem: React.FC = () => {
     const data = useDataContext();
     const setActive = useSetActiveContext();
 
+    if (!data || !setActive) return <></>
+
     const renderList = () => {
-        if (data) {
             return data.map(({city, address, caption, people, hotels, salaries, area, active}, index: number) => (           
                 <Col lg={4} sm={12} key={index} style={{marginBottom: "1em"}}>
                     <div>
@@ -23,7 +24,7 @@ export const ListItem: React.FC = () => {
                                         type="switch"
                                         id="custom-switch"
                                         checked={active}
-                                        // onChange={() => setActive(index)}
+                                        onChange={() => setActive(index)}
                                     />
                                 </Form>
                             </div>
@@ -51,7 +52,6 @@ export const ListItem: React.FC = () => {
                     </div>
                 </Col> 
             ))
-        } else return <></>
     }
     
     return (
