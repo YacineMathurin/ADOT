@@ -1,13 +1,8 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { IProps as Props } from "./modal";
+import { ISwitch } from "../interfaces/inidex";
 
-interface IProps {
-    name: string,
-    currentData: Props["currentData"],
-    setCurrentData: React.Dispatch<React.SetStateAction<Props["currentData"]>>
-}
-export const Switch: React.FC<IProps> = ({ name, currentData, setCurrentData, ...props}) => {
+export const Switch: React.FC<ISwitch> = ({ name, currentData, setCurrentData, ...props}) => {
     
     return (
         <Form>

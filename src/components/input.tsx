@@ -1,18 +1,10 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { IProps as Props } from "./modal";
+import { IInput } from "../interfaces/inidex";
 
-interface IProps extends React.HTMLAttributes<HTMLElement> {
-    ref?: React.MutableRefObject<null>,
-    label?: string,
-    name: string,
-    placeholder: string, 
-    autoFocus?: boolean,
-    currentData: Props["currentData"],
-    setCurrentData: React.Dispatch<React.SetStateAction<Props["currentData"]>>
-}
 
-export const Input = React.forwardRef<HTMLInputElement, IProps>((
+
+export const Input = React.forwardRef<HTMLInputElement, IInput>((
         {label = "", name, placeholder, autoFocus = false, currentData, setCurrentData, ...props},
         ref
     ) => {
@@ -37,6 +29,6 @@ export const Input = React.forwardRef<HTMLInputElement, IProps>((
             />
         </Form.Group>
     )
-})
+});
 
 export default Input;
